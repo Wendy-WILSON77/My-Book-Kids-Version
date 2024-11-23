@@ -1,0 +1,35 @@
+.footer {
+    justify-content: center;
+    margin: auto;
+    padding: 8px;
+    gap: 100px;
+
+} 
+
+
+.footer-reseau {
+
+    text-align: center;
+    padding:-5px
+}  
+
+
+.footer-copyright {
+ 
+    text-align: center;
+}  
+
+.footer li {
+    font-size: 18px;  // Taille du texte réduite
+  }
+
+.neon-footer {
+  
+    border: 1px solid white;
+    box-shadow: 0 0 10px white;
+    padding:10px
+
+  }
+  .bgCfooter {
+    background-color: rgb(254, 232, 214);
+  }

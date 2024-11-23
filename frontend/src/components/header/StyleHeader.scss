@@ -1,0 +1,175 @@
+.navContainer {
+  background-color: #FDA7DF;
+
+  .navbar {
+    width: 100%;
+    padding: 1rem 2rem;
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        .logo-img {
+          height: 4rem;
+        }
+
+        @media (max-width: 450px) {
+          display: none;
+        }
+      }
+
+      .burger-menu {
+        display: block;
+
+        @media (min-width: 768px) {
+          display: none;
+        }
+
+        .burger-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+
+          .burger-icon {
+            width: 2.5rem;
+            height: 3.5rem;
+            color: rgb(190, 35, 196);
+          }
+        }
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1rem 0;
+
+        &.active {
+          display: flex;
+        }
+
+        @media (min-width: 768px) {
+          display: flex;
+          flex-direction: row;
+          position: static;
+          background-color: transparent;
+          padding: 0;
+        }
+
+        .nav-list {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+
+          @media (min-width: 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+            width: auto;
+          }
+
+          .nav-item {
+            text-align: center;
+            padding: 1rem 0;
+
+            @media (min-width: 768px) {
+              padding: 0 1rem;
+            }
+
+            .nav-link {
+              color: rgb(230, 202, 43);
+              font-weight: bold;
+
+              &:hover {
+                color: rgb(118, 129, 228);
+              }
+            }
+          }
+        }
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 0.5rem;
+
+        .auth-link {
+          text-decoration: none;
+
+          .auth-btn {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+
+            &:hover {
+              background-color: #6366f1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.bgCSearchB {
+  background-color: rgb(254, 232, 214);
+}
+
+.bgCNavBar {
+  background-color: rgb(214, 162, 232);
+}
+
+/* Styles pour les écrans larges */
+.auth-buttons {
+  .auth-btn {
+    padding: 0.5rem 1rem;
+  }
+
+  button {
+    font-size: 1rem; /* ajustez la taille de police */
+  }
+}
+
+/* Styles pour les écrans plus petits (moins de 760px) */
+@media (max-width: 760px) {
+  .auth-buttons {
+    .auth-btn {
+      padding: 0.4rem 0.8rem; /* réduire le padding */
+    }
+
+    button {
+      font-size: 0.675rem; /* réduire la taille de la police */
+    }
+  }
+
+  .nav-item {
+    background-color: #ad2490;
+  }
+}
+
+.logout-btn {
+  border-radius: 25% 10%; /* arrondir le bouton */
+  padding: 0.5rem 1rem; /* ajustez le padding si nécessaire */
+}
+
+.custom-radius {
+  border-radius: 0.75rem; /* applique le border-radius souhaité */
+}
+
+.bgButton {
+  background-color: rgb(252, 122, 109);
+  color: white; /* couleur du texte */
+}
+
+.bcCsearchButton {
+  background-color: rgb(252, 122, 109);
+  color: rgb(254, 232, 214);
+}

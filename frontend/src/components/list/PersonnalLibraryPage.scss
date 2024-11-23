@@ -1,0 +1,16 @@
+@media (max-width: 768px) {
+  .list-text-content {
+    padding: 10px;
+    margin: 10px;
+    font-size: 10px;
+  }
+}
+
+.heart-button {
+  color: red;
+  cursor: pointer;
+}
+
+.heart-button.liked {
+  color: gray;
+}

@@ -1,0 +1,242 @@
+import "dotenv/config";
+import express from "express";
+import { router } from "./app/router/router.js"; 
+import cors from 'cors';
+import session from 'express-session';
+import RedisStore from "connect-redis";
+import { createClient } from 'redis';
+
+
+console.log('REDIS_URL:', process.env.REDIS_URL);  
+
+export const app = express();
+
+const initializeRedis = async () => {
+  const client = createClient({
+    url: process.env.REDIS_URL,
+    socket: {
+      tls: true, 
+      rejectUnauthorized: false 
+    }
+  });
+  
+  client.on('error', (err) => {
+    console.log('Redis Client Error L27', err);
+  });
+  
+  client.on('end', () => {
+    console.log('Redis client connection closed');
+  });
+  
+  await client.connect();
+  console.log('Redis client connected');
+  
+  return client;
+};
+
+// Détection de l'environnement 
+const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'; 
+if (isDevelopment) {
+  console.log('mode developpement activé');
+} else {
+  console.log('mode production activé');
+}
+
+// Body parser (JSON/urlEncoded)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+
+// Initialiser Redis et démarrer le serveur
+initializeRedis().then(client => {
+  // Installer express-session
+  // créer une SECRET_KEY dans le .env
+  app.use(session({
+    store: new RedisStore({ client }), // Utiliser Redis pour stocker les sessions
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    name: 'sessionId', // Nom explicite du cookie
+    cookie: {
+      secure: true, // true uniquement en production
+      sameSite: 'None',
+      httpOnly: true,
+    }
+  }));
+  
+  // Ajouter les CORS
+  const whitelist = ["https://mybookkidsversion.vercel.app", "http://localhost:5173"];
+  
+  app.use(cors({
+    origin: whitelist,
+    credentials: true
+  }));
+  
+  // configuration des headers pour autoriser le front-end à accéder à l'API
+  app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (whitelist.includes(origin)) {
+      res.header("Access-Control-Allow-Origin", origin);
+    }
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+  });
+  
+  // Utiliser le router /api 
+  app.use("/api", router);
+  
+  app.use((req, res, next) => {
+    if (!req.headers.authorization) {
+      res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    next();
+  });
+  
+  // Exemple d'une route spécifique
+  app.get('/protected-route', (req, res) => {
+    if (!req.headers.authorization) {
+      res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    res.send('route protégée');
+  });
+  
+  // Middleware 404
+  app.use((req, res, next) => {
+    res.status(404).json('La page demandée est introuvable');
+  });
+  
+  // démarrer le serveur
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`🚀 Server listening at http://localhost:${port}`);
+  });
+  
+}).catch(err => {
+  console.error('Failed to initialize Redis:', err);
+});
+
+
+
+
+// TEST DU 08 NOVEMBRE CONFIG REDIS 
+// import "dotenv/config";
+// import express from "express";
+// import { router } from "./app/router/router.js"; // importation du router
+// import cors from 'cors';
+// import session from 'express-session';
+// import RedisStore from "connect-redis";
+// import Redis from 'ioredis';
+
+// // Vérifier l'URL Redis
+// console.log('REDIS_URL:', process.env.REDIS_URL);  // Log de l'URL pour vérifier si elle est correcte
+
+// // création de l'app
+// export const app = express();
+
+// // Connecter à Redis en utilisant ioredis
+// const redisClient = new Redis(process.env.REDIS_URL);
+
+// redisClient.on('error', (err) => {  
+  //   console.error('Error Redis ', err);  
+// });
+
+// redisClient.on('end', () => {
+  //   console.log('Connexion Redis fermée');
+// });
+
+// // Détection de l'environnement 
+// const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'; 
+// if (isDevelopment) { 
+//   console.log('mode developpement activé');
+// } else { 
+//   console.log('mode production activé'); 
+// }
+
+// // Body parser (JSON/urlEncoded)
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // Déclarer le fichier public static ==> img couvertures de livres
+// app.use(express.static('public'));
+
+// // Installer express-session
+// // créer une SECRET_KEY dans le .env
+// app.use(session({
+//     store: new RedisStore({ client: redisClient }), // Utiliser Redis pour stocker les sessions
+//     secret: process.env.SECRET_KEY,
+//     resave: false,
+//     saveUninitialized: false,
+//     name: 'sessionId', // Nom explicite du cookie
+//     cookie: { 
+//         secure: true, // true uniquement en production
+//         maxAge: 1000 * 60 * 60, // 1 heure
+//         sameSite: 'None',   
+//         httpOnly: true,
+//     } 
+// }));
+
+// // Ajouter les CORS
+// const whitelist = [ "https://mybookkidsversion.vercel.app", "http://localhost:5173" ];
+// app.use(cors({
+//     origin: whitelist,
+//     credentials: true
+// }));
+
+// // configuration des headers pour autoriser le front-end à accéder à l'API
+// app.use((req, res, next) => {
+  //   const origin = req.headers.origin;
+//   if (whitelist.includes(origin)) {
+//     res.header("Access-Control-Allow-Origin", origin);
+//   }
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
+
+// // Utiliser le router /api pour toutes les routes définies dans router.js
+// app.use("/api", router);
+
+// app.use((req, res, next) => {
+  //   if (!req.headers.authorization) {
+//     res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+//   next();
+// });
+
+// // Exemple d'une route spécifique
+// app.get('/protected-route', (req, res) => {
+  //   if (!req.headers.authorization) {
+//     res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+//   res.send('This is a protected route');
+// });
+
+// // Middleware 404
+// app.use((req, res, next) => {
+  //     res.status(404).json('La page demandée est introuvable');
+// });
+
+// // démarrer le serveur
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+  //     console.log(`🚀 Server listening at http://localhost:${port}`);
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

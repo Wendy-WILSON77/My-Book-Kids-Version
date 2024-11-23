@@ -1,0 +1,90 @@
+@keyframes clignoter-texte {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.clignotant-texte {
+  animation: clignoter-texte 2s infinite;
+  font-size: medium;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.roll {
+  animation: rotation 5s infinite linear;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.border-rounded {
+  border: 5px solid white;
+  border-radius: 15px;
+  padding: 16px;
+  background-color: rgb(254, 232, 214);
+}
+
+.text-content {
+  font-size: 0.875rem; 
+  text-align: center;
+  margin-top: 0;
+  padding: 20px;
+  max-width: 90vw; 
+  box-sizing: border-box; 
+}
+
+.reduce-height {
+  height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.text-content h2 {
+  white-space: normal;
+  overflow-wrap: break-word; 
+}
+
+@media (max-width: 768px) {
+  .text-content h2 {
+    font-size: 1rem; 
+  }
+  .text-content p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-content {
+    padding: 10px;
+    font-size: 14px; 
+  }
+
+  .intro-home-text h1 {
+    font-size: 1.5rem; 
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-content h2 {
+    font-size: 1.5rem; 
+  }
+}
