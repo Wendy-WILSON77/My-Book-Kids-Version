@@ -42,6 +42,11 @@ app.use(
     secret: "forest squirrel",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: false, //  développement sans HTTPS
+      httpOnly: true, // Sécuriser les cookies pour qu'ils ne soient pas accessibles par JavaScript
+      maxAge: 1000 * 60 * 60 * 24, // Durée de vie du cookie ( 1 jour)
+    },
   })
 );
 
@@ -73,7 +78,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Ajouter les CORS
-const whitelist = ["https://mybookkidsversion.vercel.app", "http://localhost:5173"];
+const whitelist = "http://localhost:5173";
 
 app.use(cors({
   origin: whitelist,

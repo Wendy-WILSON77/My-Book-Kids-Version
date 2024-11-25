@@ -29,10 +29,10 @@ app.use(
     store: redisStore,
     secret: "forest squirrel",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
-      secure: true, // true uniquement en production
-      sameSite: 'None',
+      secure: false, // true uniquement en production
+      sameSite: 'Lax', // Lax pour éviter les problèmes de cookies cross-site
       httpOnly: true,
     }
   })

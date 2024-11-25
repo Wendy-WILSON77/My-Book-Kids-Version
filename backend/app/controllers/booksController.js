@@ -1,6 +1,6 @@
 import { Author, Book, Category, Notice } from "../models/associations.js";
 import { sequelize } from "../models/dbClient.js";
-import { Op } from "sequelize";
+// import { Op } from "sequelize";
 
 // Route pour 8 livres en random => la homePage
 

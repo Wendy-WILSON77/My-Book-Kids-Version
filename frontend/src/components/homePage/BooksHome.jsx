@@ -92,8 +92,8 @@ function BooksHome() {
     return <div>Chargement...</div>;
   }
 
-  const baseURL =
-    import.meta.env.VITE_API_URL || "https://mbi-back.onrender.com/api";
+  const baseURL = import.meta.env.VITE_API_URL
+    //  || "https://mbi-back.onrender.com/api";
   if (!import.meta.env.VITE_API_URL) {
     console.warn(
       "VITE_API_URL n'est pas définie. Utilisation de l'URL par défaut."

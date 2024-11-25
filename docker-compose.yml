@@ -32,7 +32,7 @@ services:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data/dump.sql:/docker-entrypoint-initdb.d/init.sql
 
   redis:
     image: redis:latest
