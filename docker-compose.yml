@@ -8,6 +8,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
 
   backend:
     image: node:22-alpine

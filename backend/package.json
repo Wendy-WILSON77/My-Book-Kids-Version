@@ -7,10 +7,10 @@
   "scripts": {
     "dev": "nodemon index.js",
     "connect": "sudo -i -u postgres psql",
-    "connect_db": "psql -U bookis -d books_db",
-    "db:create": "psql -U bookis -d books_db -f data/create_tables_prod.sql",
+    "connect_db": "psql -U mbkv -d mbkv",
+    "db:create": "psql -U mbkv -d mbkv -f data/create_tables_prod.sql",
     "db:seed_user": "node ./data/seed_user.js",
-    "db:seeding": "psql -U bookis -d books_db -f data/seed_user_prod.sql",
+    "db:seeding": "psql -U mbkv -d mbkv -f data/seed_user_prod.sql",
     "db:reset": "npm run db:create && npm run db:seed_user && npm run db:seeding",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
