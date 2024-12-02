@@ -85,8 +85,8 @@ export const updateMonProfil = async (req, res) => {
               "Le mot de passe doit contenir au moins 8 caractères, dont un chiffre, une majuscule et une minuscule.",
           });
       }
-      // Hacher le nouveau mot de passe
-      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      // Hacher le nouveau mot de passe grace à Bcrypt
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10); // 10tou de salage "SECU en+ ,ajoute des caractère en plus du hachage de bcrypt AVANT d'etre stocké en BDD"
       userProfil.password = hashedNewPassword;
     }
     console.log("après maj", userProfil);

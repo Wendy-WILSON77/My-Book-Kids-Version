@@ -2,7 +2,7 @@ import "dotenv/config";
 import { authController } from "../app/controllers/authController.js";
 import { User } from "../app/models/User.js";
 import bcrypt from "bcrypt";
-
+// fichier servant à hacher les mots de passe des utilisateurs avant de les enregistrer en base de données
 const users = [
     {
         email: "test1@gmail.com",

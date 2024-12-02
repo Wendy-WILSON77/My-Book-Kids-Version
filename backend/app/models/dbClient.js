@@ -10,6 +10,7 @@ export const sequelize = new Sequelize(process.env.PG_URL, {
   },
 });
 
+// // test séquelize de la connexion à la bdd
 // async function checkConnection() {
 //   try {
 //     // Vérifie la connexion

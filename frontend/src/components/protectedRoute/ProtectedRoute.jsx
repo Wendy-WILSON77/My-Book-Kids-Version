@@ -10,3 +10,5 @@ const ProtectedRoute = ({ isLogged, children }) => {
 
 export default ProtectedRoute;
 
+
+

@@ -4,32 +4,36 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* image couvre le conteneur sans déformation */
-  z-index: 1; /* image est derrière le contenu principal */
+  object-fit: cover; 
+  z-index: 1; 
   transform: translateX(0); 
 }
 
 .background-image {
   width: 150%;
   height: 100%;
-  object-fit: cover; // image qui occupe tout l'espace disponible
+  object-fit: cover; 
 }
 
 @media (max-width: 768px) {
   .bgContainer {
-    flex-direction: column; /* petits écrans : image qui occupe le haut */
+    flex-direction: column; 
   }
 
   .relative {
-    height: 50vh; /*  petits écrans : image qui occupe 50% de la hauteur */
+    height: 50vh; 
   }
   .imgDecal {
-    height: 50vh; // ajuste la hauteur sur mobile
+    height: 50vh; 
   }
 }
 
 @media (min-width: 1024px) {
   .relative {
-    height: 100vh; /* Pleine hauteur pour les grands écrans */
+    height: 100vh; 
   }
 }
+
+
+
+
