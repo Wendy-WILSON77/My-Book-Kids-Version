@@ -26,7 +26,7 @@ function Footer() {
           SUIVEZ My Book Kids
         </p>
         {/* Logo Facebook */}
-        <Link to="https://www.facebook.com/">
+        <Link to="https://www.facebook.com/" target="_blank">
           <button className="logo">
             <img
               src="/integrations/logos/facebook.webp"
@@ -37,7 +37,7 @@ function Footer() {
           </button>
         </Link>
         {/* Logo Instagram */}
-        <Link to="https://www.instagram.com/kidsversion77/">
+        <Link to="https://www.instagram.com/kidsversion77/" target="_blank">
           <button>
             <img
               src="/integrations/logos/instagram.webp"
