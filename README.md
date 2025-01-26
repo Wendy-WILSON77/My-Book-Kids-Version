@@ -11,4 +11,5 @@ elle permet de renforcer les liens familiaux autour de la lecture. Les enfants s
 des ouvrages que leur enseignant ne leur aura peut-être jamais lus
 
 Lancement :  docker compose up -d
-Aarrêt:  docker compose down
+
+Arrêt:  docker compose down
